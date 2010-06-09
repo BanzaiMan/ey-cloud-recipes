@@ -62,6 +62,7 @@
 #uncomment to include the eybackup_verbose recipe
 #require_recipe "eybackup_verbose"
 
+<<<<<<< HEAD
 #require_recipe 'nginx'
 
 #uncomment to include the mysql_replication_check recipe
@@ -70,3 +71,7 @@
 #uncomment to include the mysql_administrative_tools recipe
 # additional configuration of this recipe is required
 #require_recipe "mysql_administrative_tools"
+=======
+#uncomment to include the jruby recipe
+require_recipe "jruby"
+>>>>>>> Some possible JRuby tweaks to try

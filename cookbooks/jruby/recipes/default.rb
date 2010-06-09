@@ -28,7 +28,7 @@ end
 #
 #####
 
-APP_DIRECTORY = '/data/hello_world/current'
+APP_DIRECTORY = '/data/railssimple5/current'
 
 #####
 #
@@ -94,14 +94,14 @@ template File.join([APP_DIRECTORY],'config','glassfish.yml') do
   })
 end
 
-# # Install the glassfish start/stop script.
-# template '/etc/init.d/glassfish' do
-#   owner 'root'
-#   group 'root'
-#   mode 0755
-#   source 'init.d-glassfish.erb'
-# end
-# 
+# Install the glassfish start/stop script.
+template '/etc/init.d/glassfish' do
+  owner 'root'
+  group 'root'
+  mode 0755
+  source 'init.d-glassfish.erb'
+end
+
 # execute "ensure-glassfish-is-running" do
 #     command %Q{
 #       /etc/init.d/glassfish start --config /data/hello_world/current/config/glassfish.yml  /data/hello_world/current

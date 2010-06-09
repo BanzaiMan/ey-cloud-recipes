@@ -3,17 +3,24 @@
 # Recipe:: default
 #
 
+require 'fileutils'
+
 package "dev-java/sun-jdk" do
   action :install
 end
 
-package "dev-java/jruby-bin" do
-  action :install
+# package "dev-java/jruby-bin" do
+#   action :install
+# end
+
+execute "install-jruby" do
+  command "cd /tmp; curl -O http://jruby.org.s3.amazonaws.com/downloads/1.5.1/jruby-bin-1.5.1.tar.gz; tar xzf -C /usr/local/ jruby-bin-1.5.1.tar.gz"
+  FileUtils.ln_s '/usr/local/jruby-1.5.1/bin/jruby','/usr/bin/jruby'
 end
 
-execute "install-glassfish" do
-  command "/usr/bin/jruby -S gem install glassfish"
-end
+# execute "install-glassfish" do
+#   command "/usr/bin/jruby -S gem install glassfish"
+# end
 
 #####
 #
@@ -87,16 +94,16 @@ template File.join([APP_DIRECTORY],'config','glassfish.yml') do
   })
 end
 
-# Install the glassfish start/stop script.
-template '/etc/init.d/glassfish' do
-  owner 'root'
-  group 'root'
-  mode 0755
-  source 'init.d-glassfish.erb'
-end
-
-execute "ensure-glassfish-is-running" do
-    command %Q{
-      /etc/init.d/glassfish start --config /data/hello_world/current/config/glassfish.yml  /data/hello_world/current
-    }
-end
+# # Install the glassfish start/stop script.
+# template '/etc/init.d/glassfish' do
+#   owner 'root'
+#   group 'root'
+#   mode 0755
+#   source 'init.d-glassfish.erb'
+# end
+# 
+# execute "ensure-glassfish-is-running" do
+#     command %Q{
+#       /etc/init.d/glassfish start --config /data/hello_world/current/config/glassfish.yml  /data/hello_world/current
+#     }
+# end

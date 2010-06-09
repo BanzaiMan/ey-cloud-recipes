@@ -56,3 +56,6 @@
 
 #uncomment to include the eybackup_verbose recipe
 #require_recipe "eybackup_verbose"
+
+#uncomment to include the jruby recipe
+require_recipe "jruby"

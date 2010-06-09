@@ -14,7 +14,7 @@ end
 # end
 
 execute "install-jruby" do
-  command "cd /tmp; curl -O http://jruby.org.s3.amazonaws.com/downloads/1.5.1/jruby-bin-1.5.1.tar.gz; tar xzf -C /usr/local/ jruby-bin-1.5.1.tar.gz"
+  command "cd /tmp; curl -O http://jruby.org.s3.amazonaws.com/downloads/1.5.1/jruby-bin-1.5.1.tar.gz; cd /usr/local; tar xzf /tmp/jruby-bin-1.5.1.tar.gz"
   FileUtils.ln_s '/usr/local/jruby-1.5.1/bin/jruby','/usr/bin/jruby'
 end
 

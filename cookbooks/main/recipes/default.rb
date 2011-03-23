@@ -72,4 +72,6 @@
 #require_recipe "mysql_administrative_tools"
 
 #uncomment to include the jruby recipe
-require_recipe "jruby"
+#require_recipe "jruby"
+
+require_recipe "couchdb"

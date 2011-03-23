@@ -34,6 +34,11 @@ if node[:instance_role] == "solo" || (node[:instance_role] == "util" && node[:na
       end
     end
     
+    package "sys-apps/ey-monit-scripts" do
+      version "0.19"
+      action :upgrade
+    end
+    
     execute "monit-reload-restart" do
        command "sleep 30 && monit reload"
        action :run

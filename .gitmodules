@@ -1,0 +1,3 @@
+[submodule "cookbooks/couchdb"]
+	path = cookbooks/couchdb
+	url = git@github.com:BanzaiMan/ey-cloud-recipes-couchdb.git

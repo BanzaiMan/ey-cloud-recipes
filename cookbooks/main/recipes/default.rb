@@ -74,4 +74,4 @@
 #uncomment to include the jruby recipe
 #require_recipe "jruby"
 
-require_recipe "couchdb"
+require_recipe 'nginx_conf_custom'

@@ -4,7 +4,7 @@
 #
 
 # Set your application name here
-appname = "appname"
+appname = "myapp"
 
 # Uncomment the flavor of sphinx you want to use
 #flavor = "thinking_sphinx"
@@ -16,6 +16,7 @@ appname = "appname"
 # deploy may fail because the initial database migration will not have
 # run by the time this executes on the utility instance. If that occurs
 # just deploy again and the recipe should succeed.
+
 utility_name = nil
 # utility_name = "sphinx"
 
@@ -25,9 +26,11 @@ utility_name = nil
 #
 # If you don't want scheduled reindexes, just leave this set to nil.
 # Setting it equal to 10 would run the cron job every 10 minutes.
-cron_interval = nil
+
+cron_interval = nil #If this is not set your data will NOT be indexed
 
 if utility_name
+  sphinx_host = node[:utility_instances].find {|u| u[:name] == utility_name }[:hostname]
   if ['solo', 'app', 'app_master'].include?(node[:instance_role])
     run_for_app(appname) do |app_name, data|
       ey_cloud_report "Sphinx" do
@@ -48,8 +51,9 @@ if utility_name
         source "sphinx.yml.erb"
         variables({
           :app_name => app_name,
+          :address => sphinx_host,
           :user => node[:owner_name],
-          :mem_limit => 32
+          :mem_limit => '32M'
         })
       end
     end
@@ -109,13 +113,14 @@ if utility_name
         source "sphinx.yml.erb"
         variables({
           :app_name => app_name,
+          :address => 'localhost',
           :user => node[:owner_name],
-          :mem_limit => 32
+          :mem_limit => '32M'
         })
       end
 
       execute "sphinx config" do
-        command "rake #{flavor}:configure"
+        command "bundle exec rake #{flavor}:configure"
         user node[:owner_name]
         environment({
           'HOME' => "/home/#{node[:owner_name]}",
@@ -129,7 +134,7 @@ if utility_name
       end
 
       execute "#{flavor} index" do
-        command "rake #{flavor}:index"
+        command "bundle exec rake #{flavor}:index"
         user node[:owner_name]
         environment({
           'HOME' => "/home/#{node[:owner_name]}",
@@ -148,7 +153,7 @@ if utility_name
           day     '*'
           month   '*'
           weekday '*'
-          command "cd /data/#{app_name}/current && RAILS_ENV=#{node[:environment][:framework_env]} rake #{flavor}:index"
+          command "cd /data/#{app_name}/current && RAILS_ENV=#{node[:environment][:framework_env]} bundle exec rake #{flavor}:index"
           user node[:owner_name]
         end
       end
@@ -210,13 +215,14 @@ else
         source "sphinx.yml.erb"
         variables({
           :app_name => app_name,
+          :address => 'localhost',
           :user => node[:owner_name],
-          :mem_limit => 32
+          :mem_limit => '32'
         })
       end
 
       execute "sphinx config" do
-        command "rake #{flavor}:configure"
+        command "bundle exec rake #{flavor}:configure"
         user node[:owner_name]
         environment({
           'HOME' => "/home/#{node[:owner_name]}",
@@ -230,7 +236,7 @@ else
       end
 
       execute "#{flavor} index" do
-        command "rake #{flavor}:index"
+        command "bundle exec rake #{flavor}:index"
         user node[:owner_name]
         environment({
           'HOME' => "/home/#{node[:owner_name]}",
@@ -249,7 +255,7 @@ else
           day     '*'
           month   '*'
           weekday '*'
-          command "cd /data/#{app_name}/current && RAILS_ENV=#{node[:environment][:framework_env]} rake #{flavor}:index"
+          command "cd /data/#{app_name}/current && RAILS_ENV=#{node[:environment][:framework_env]} bundle exec rake #{flavor}:index"
           user node[:owner_name]
         end
       end

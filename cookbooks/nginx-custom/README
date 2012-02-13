@@ -1,0 +1,4 @@
+Chef recipe to manage /etc/nginx/servers/#{app_name}/custom{,.ssl}.conf
+
+In recipes/default.rb, the paths to the configuration files are hardcoded,
+so you need to edit that file to meet your needs.

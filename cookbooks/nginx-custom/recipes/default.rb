@@ -1,5 +1,6 @@
+## note that the file paths are hardcoded.
 if %w(solo app_master app).include? node[:instance_role]
-  file "/data/nginx/servers/#{app_name}/custom.conf" do
+  file "/data/nginx/servers/todo/custom.conf" do
     action :create_if_missing
     owner node.engineyard.ssh_username
     group node.engineyard.ssh_username
@@ -7,7 +8,7 @@ if %w(solo app_master app).include? node[:instance_role]
     source "custom.conf"
   end
   
-  file "/data/nginx/servers/#{app_name}/custom.ssl.conf" do
+  file "/data/nginx/servers/todo/custom.ssl.conf" do
     action :create_if_missing
     owner node.engineyard.ssh_username
     group node.engineyard.ssh_username

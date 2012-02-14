@@ -1,0 +1,5 @@
+Chef recipe to manage any file with fixed content.
+
+To use:
+1. In recipes/default.rb, specify the path
+2. In files/default/source_file, put the content of the file

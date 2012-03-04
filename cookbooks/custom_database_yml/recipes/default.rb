@@ -4,16 +4,16 @@ environment = node.engineyard.environment
 user = node[:users].first
 
 node.engineyard.apps.each do |app|
-	template "/data/#{app.name}/current/config/database.yml" do
-		source "database.yml.erb"
-		owner environment.ssh_username
-		group environment.ssh_username
-		mode 0744
-		variables({
-			:username => user[:username],
-			:password => user[:password],
-			:dbname => app.database_name,
-			:host => environment.db_host
-			})
-	end
+  template "/data/#{app.name}/current/config/database.yml" do
+    source "database.yml.erb"
+    owner environment.ssh_username
+    group environment.ssh_username
+    mode 0744
+    variables({
+      :username => user[:username],
+      :password => user[:password],
+      :dbname => app.database_name,
+      :host => environment.db_host
+      })
+  end
 end

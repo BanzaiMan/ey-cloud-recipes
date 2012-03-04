@@ -1,7 +1,7 @@
-production:
+<%=@node[:environment][:framework_env]%>:
   adapter:   mysql2
-  database:  <% @dbname %>
-  username:  <% @username %>
-  password:  <% @password %>
-  host:      <% @host%>
+  database:  <%= @dbname %>
+  username:  <%= @username %>
+  password:  <%= @password %>
+  host:      <%= @host%>
   reconnect: true

@@ -1,6 +1,6 @@
 environment = node.engineyard.environment
 
-db_master = node[:instances].select {|i| i["role"] == "db_master"}.first
+# db_master = node[:instances].select {|i| i["role"] == "db_master"}.first
 user = node[:users].first
 
 node.engineyard.apps.each do |app|
